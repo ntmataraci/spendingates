@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { shoppingItems } from "./data/shoppingItems";
+import Receipts from "./components/Receipts";
+import { useSelector } from "react-redux";
+import ShoppingItem from "./components/ShoppingItem";
+import { RootState } from "./store/store";
 function App() {
+
+const bankAcc=useSelector((state:RootState)=>state.shoppingSlice.bank)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Gates spendin study</h1>
+      <div>My Money is : {bankAcc} </div>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "2rem",
+          justifyContent: "center",
+        }}
+      >
+        {shoppingItems.map((item, idx) => (
+         <ShoppingItem key={idx} item={item} />
+        ))}
+      </div>
+      <Receipts />
     </div>
   );
 }
